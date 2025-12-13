@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import pymysql
+pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -53,8 +55,6 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
-INSTALLED_APPS += ["corsheaders"]
-MIDDLEWARE = ["corsheaders.middleware.CorsMiddleware"] + MIDDLEWARE
 
 
 ROOT_URLCONF = 'main.urls'
@@ -83,11 +83,11 @@ WSGI_APPLICATION = 'main.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ndf',
-        'USER': 'root',
-        'PASSWORD': '123456',
-        'HOST':'127.0.0.1',
-        'PORT':'3306',
+        'NAME': 'ndf_db',
+        'USER': 'n-user',
+        'PASSWORD': '96121378s.y317',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
