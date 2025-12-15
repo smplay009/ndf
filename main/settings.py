@@ -26,7 +26,10 @@ SECRET_KEY = 'django-insecure-ss^akcj4i_ivff3bfg0#t*s#1)sxdx4#41md3r&1c=3ywpvezz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "remedyby.ir",
+    "www.remedyby.ir",
+]
 
 
 # Application definition
@@ -44,6 +47,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -51,8 +55,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
+
 
 
 
@@ -85,8 +89,12 @@ DATABASES = {
         'NAME': 'ndf_db',
         'USER': 'n-user',
         'PASSWORD': '96121378s.y317',
-        'HOST': 'localhost',
+        'HOST': '127.0.0.1',   # ⬅️ به جای localhost
         'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
+        'CONN_MAX_AGE': 60,  # ⬅️ خیلی مهم
     }
 }
 
@@ -131,7 +139,8 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-CORS_ALLOWED_ORIGINS = [
+CORS_ALLOW_ALL_ORIGINS = True
+CSRF_TRUSTED_ORIGINS = [
     "https://ndf-co.com",
+    "https://www.ndf-co.com",
 ]
