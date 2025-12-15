@@ -1,9 +1,12 @@
-import imp
 import os
 import sys
 
-
 sys.path.insert(0, os.path.dirname(__file__))
 
-wsgi = imp.load_source('wsgi', 'main/wsgi.py')
-application = wsgi.application
+os.environ.setdefault(
+    'DJANGO_SETTINGS_MODULE',
+    'main.settings'
+)
+
+from django.core.wsgi import get_wsgi_application
+application = get_wsgi_application()
