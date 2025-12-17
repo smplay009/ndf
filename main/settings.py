@@ -173,4 +173,4 @@ CORS_ALLOW_HEADERS = [
     "x-requested-with",
 ]
 
-FORCE_SCRIPT_NAME = "/ndf"
+FORCE_SCRIPT_NAME = ""
