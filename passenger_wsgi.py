@@ -1,16 +1,17 @@
+import importlib.machinery
+import importlib.util
 import os
 import sys
-import traceback
 
-BASE_DIR = os.path.dirname(__file__)
-sys.path.insert(0, os.path.join(BASE_DIR, "mydjango"))
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "main.settings")
+sys.path.insert(0, os.path.dirname(__file__))
 
-try:
-    from django.core.wsgi import get_wsgi_application
-    application = get_wsgi_application()
-except Exception:
-    with open(os.path.join(BASE_DIR, "stderr.log"), "w") as f:
-        f.write(traceback.format_exc())
-    raise
+def load_source(modname, filename):
+    loader = importlib.machinery.SourceFileLoader(modname, filename)
+    spec = importlib.util.spec_from_file_location(modname, filename, loader=loader)
+    module = importlib.util.module_from_spec(spec)
+    loader.exec_module(module)
+    return module
+
+wsgi = load_source('wsgi', 'app.py')
+application = wsgi.application
