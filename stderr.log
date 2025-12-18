@@ -1,6 +1,0 @@
-FileNotFoundError: [Errno 2] No such file or directory: '/home/remedybyir/ndf/passenger_wsgi.py'
-FileNotFoundError: [Errno 2] No such file or directory: '/home/remedybyir/ndf/passenger_wsgi.py'
-[UID:1703][816851] Child process with pid: 816870 was killed by signal: 15, core dumped: no
-FileNotFoundError: [Errno 2] No such file or directory: '/home/remedybyir/ndf/passenger_wsgi.py'
-FileNotFoundError: [Errno 2] No such file or directory: '/home/remedybyir/ndf/passenger_wsgi.py'
-[UID:1703][817373] Child process with pid: 817380 was killed by signal: 15, core dumped: no
