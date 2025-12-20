@@ -1,21 +1,16 @@
 from django.db import models
 
-# Create your models here.
-from django.db import models
-from django.contrib.auth.models import User
-
 class Rating(models.Model):
-    q1 = models.IntegerField()
-    q2 = models.IntegerField()
-    q3 = models.IntegerField()
-    q4 = models.IntegerField()
-    q5 = models.IntegerField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    answers = models.JSONField("پاسخ سوالات")  
+    total_score = models.PositiveSmallIntegerField("جمع امتیاز", editable=False)
+    average_score = models.FloatField("میانگین امتیاز", editable=False)
+    created_at = models.DateTimeField("تاریخ ثبت", auto_now_add=True)
 
-    @property
-    def total_score(self):
-        return self.q1 + self.q2 + self.q3 + self.q4 + self.q5
+    def save(self, *args, **kwargs):
+        scores = list(self.answers.values())
+        self.total_score = sum(scores)
+        self.average_score = round(self.total_score / len(scores), 2) if scores else 0
+        super().save(*args, **kwargs)
 
-    @property
-    def average_score(self):
-        return self.total_score / 5
+    def __str__(self):
+        return f"⭐ {self.average_score}"

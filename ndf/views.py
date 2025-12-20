@@ -1,28 +1,23 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
-from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import csrf_exempt
 from .models import Rating
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
-@method_decorator(csrf_exempt, name='dispatch')
+@method_decorator(csrf_exempt, name="dispatch")
 class RatingAPIView(APIView):
-    permission_classes = [AllowAny]
-
-    def options(self, request, *args, **kwargs):
-        return Response(status=200)
 
     def post(self, request):
-        data = request.data
-        rating = Rating.objects.create(
-            q1=int(data.get("q1", 0)),
-            q2=int(data.get("q2", 0)),
-            q3=int(data.get("q3", 0)),
-            q4=int(data.get("q4", 0)),
-            q5=int(data.get("q5", 0)),
-        )
+        answers = request.data.get("answers", {})
+
+        if not answers or not isinstance(answers, dict):
+            return Response({"error": "Invalid data"}, status=400)
+
+        rating = Rating.objects.create(answers=answers)
+
         return Response({
             "status": "success",
+            "answers": rating.answers,
             "total_score": rating.total_score,
-            "average_score": rating.average_score
+            "average_score": rating.average_score,
         })
