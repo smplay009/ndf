@@ -1,13 +1,14 @@
 import os
 import sys
 
+# مسیر اصلی پروژه Django
+BASE_DIR = os.path.join(os.path.dirname(__file__), 'mydjango')
+sys.path.insert(0, BASE_DIR)
 
-sys.path.insert(0, os.path.dirname(__file__))
+# تنظیمات Django
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "main.settings")
 
+# WSGI application
+from django.core.wsgi import get_wsgi_application
+application = get_wsgi_application()
 
-def application(environ, start_response):
-    start_response('200 OK', [('Content-Type', 'text/plain')])
-    message = 'It works!\n'
-    version = 'Python v' + sys.version.split()[0] + '\n'
-    response = '\n'.join([message, version])
-    return [response.encode()]
