@@ -8,6 +8,6 @@ def home(request):
     return HttpResponse("NDf app is running!")
 
 urlpatterns = [    
-    path("", home, name="home"),           # مسیر root
-    path("api/rating/", RatingAPIView.as_view(), name="rating"),  # مسیر API
+    path("", home, name="home"),           
+    path("api/rating/", RatingAPIView.as_view(), name="rating"), 
 ]
