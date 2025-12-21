@@ -7,8 +7,7 @@ from .views import RatingAPIView
 def home(request):
     return HttpResponse("NDf app is running!")
 
-urlpatterns = [
-    path('admin/', admin.site.urls),       # ادمین اینجا درست میشه
+urlpatterns = [    
     path("", home, name="home"),           # مسیر root
     path("api/rating/", RatingAPIView.as_view(), name="rating"),  # مسیر API
 ]
